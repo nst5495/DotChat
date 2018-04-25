@@ -4,6 +4,7 @@ using DataConnection;
 using Domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,15 @@ namespace ChatClient
         public MainWindow()
         {
             InitializeComponent();
+            //Check for Remember me
+            if(File.Exists(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath))
+            {
+                using (var sr = new StreamReader(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath))
+                {
+                    UsernameTB.Text = sr.ReadLine();
+                    PasswordTB.Password = sr.ReadLine();
+                }
+            }
         }
 
         private void LoginBT_Click(object sender, RoutedEventArgs e)
@@ -38,6 +48,27 @@ namespace ChatClient
             if (user != null)
             {
                 CurrentUser.Login(user);
+                if((bool)RememberCB.IsChecked)
+                {
+                    Directory.CreateDirectory(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMeFolder);
+                    using (File.Create(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath))
+                    {
+
+                    }
+                    using (var sw = new StreamWriter(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath))
+                    {
+                        sw.WriteLine(CurrentUser.GetCurrentUser().UserName);
+                        sw.WriteLine(CurrentUser.GetCurrentUser().Password);
+                    }
+
+                }
+                else
+                {
+                    if(File.Exists(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath))
+                    {
+                        File.Delete(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath);
+                    }
+                }
                 Contacts con = new Contacts();
                 con.Show();
                 this.Close();
