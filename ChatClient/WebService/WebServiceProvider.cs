@@ -49,6 +49,15 @@ namespace ChatClient.WebService
             return response.Data;
         }
 
+        public UserAccount ChangePassword(string username, string password)
+        {
+            var request = new RestRequest("/api/UserAccount/ChangePassword");
+            request.AddParameter("username", username);
+            request.AddParameter("password", password);
+            var response = client.Execute<UserAccount>(request);
+            return response.Data;
+        }
+
         
 
 

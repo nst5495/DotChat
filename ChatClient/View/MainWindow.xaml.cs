@@ -34,7 +34,7 @@ namespace ChatClient
 
         private void LoginBT_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount user = WebServiceProvider.getInstance().Login(UsernameTB.Text, PasswordTB.Text);
+            UserAccount user = WebServiceProvider.getInstance().Login(UsernameTB.Text, PasswordTB.Password);
             if (user != null)
             {
                 CurrentUser.Login(user);

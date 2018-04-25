@@ -54,6 +54,13 @@ namespace DataConnection
             UserAccount user = Connection.GetConnection().Query<UserAccount>("SELECT * FROM useraccount WHERE useraccount_username = @name", new { name = username }).SingleOrDefault();
             return user != null;
         }
+
+        public UserAccount ChangePassword(string username, string password)
+        {
+            Connection.GetConnection().Execute("UPDATE useraccount SET useraccount_password = @password WHERE useraccount_username = @username",
+                new { password = password, username = username });
+            return GetUser(username, password);
+        }
         
     }
 }

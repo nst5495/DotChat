@@ -27,5 +27,11 @@ namespace WebApplication1.Controllers
             user.Password = password;
             return UserFacade.GetInstance().AddUser(user);
         }
+
+        [HttpGet]
+        public UserAccount ChangePassword(string username, string password)
+        {
+            return UserFacade.GetInstance().ChangePassword(username, password);
+        }
     }
 }

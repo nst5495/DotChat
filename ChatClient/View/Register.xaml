@@ -13,8 +13,14 @@
         <TextBox x:Name="PasswordTB" HorizontalAlignment="Left" Height="23" Margin="29,106,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="125" TextChanged="PasswordTB_TextChanged" GotFocus="PasswordTB_GotFocus"/>
         <TextBox x:Name="RepPasswordTB" HorizontalAlignment="Left" Height="23" Margin="159,106,0,0" TextWrapping="Wrap" Text="Repeat Password" VerticalAlignment="Top" Width="125" GotFocus="RepPasswordTB_GotFocus"/>
         <Button Content="Register" HorizontalAlignment="Left" Margin="209,281,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label x:Name="ErrorLBL" Content="" HorizontalAlignment="Left" Margin="29,250,0,0" VerticalAlignment="Top" Width="255" Foreground="Red"/>
-        <Button x:Name="BackBTN" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="BackBTN_Click"/>
+        <Label x:Name="ErrorLBL" Content="" HorizontalAlignment="Left" Margin="29,250,0,0" VerticalAlignment="Top" Width="255" Foreground="Red">
+            <Label.Resources>
+                <Style TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            </Style>
+            </Label.Resources>
+            </Label>
+            <Button x:Name="BackBTN" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="BackBTN_Click"/>
         <TextBlock x:Name="TooltipLBL" HorizontalAlignment="Left" Margin="33,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="104" Width="251"/>
 
     </Grid>

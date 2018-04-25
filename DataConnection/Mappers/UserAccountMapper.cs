@@ -12,14 +12,14 @@ namespace DataConnection.Mappers
     {
         public UserAccountMapper()
         {
-            Map(x => x.Id).ToColumn("useraccount_id");
-            Map(x => x.FirstName).ToColumn("useraccount_firstname");
-            Map(x => x.LastName).ToColumn("useraccount_lastname");
-            Map(x => x.UserName).ToColumn("useraccount_username");
-            Map(x => x.Password).ToColumn("useraccount_passowrd");
-            Map(x => x.UserIcon).ToColumn("useraccount_usericon");
-            Map(x => x.StatusMessage).ToColumn("useraccount_statusmessage");
-            Map(x => x.Status).ToColumn("useraccount_status");
+            Map(x => x.Id).ToColumn("useraccount_id",false);
+            Map(x => x.FirstName).ToColumn("useraccount_firstname", false);
+            Map(x => x.LastName).ToColumn("useraccount_lastname", false);
+            Map(x => x.UserName).ToColumn("useraccount_username", false);
+            Map(x => x.Password).ToColumn("useraccount_password", false);
+            Map(x => x.UserIcon).ToColumn("useraccount_usericon", false);
+            Map(x => x.StatusMessage).ToColumn("useraccount_statusmessage", false);
+            Map(x => x.Status).ToColumn("useraccount_status", false);
         }
     }
 }

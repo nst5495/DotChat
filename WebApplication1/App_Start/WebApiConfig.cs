@@ -21,6 +21,8 @@ namespace WebApplication1
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            DapperConfiguration.Map();
+
             //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
         }
     }

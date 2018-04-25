@@ -19,14 +19,29 @@ namespace ChatClient.View
     /// </summary>
     public partial class Contacts : Window
     {
+
         public Contacts()
         {
             InitializeComponent();
+            InitProfileInfo();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void InitProfileInfo()
+        {
+            NameBigLBL.Content = CurrentUser.GetCurrentUser().UserName;
+            NameLBL.Content = CurrentUser.GetCurrentUser().UserName + ":";
+        }
+
+        private void ViewProfileBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ViewProfile prof = new ViewProfile();
+            prof.Show();
+            prof.Focus();
         }
     }
 }
