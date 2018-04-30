@@ -28,7 +28,9 @@ namespace ChatClient.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            AddDialogue dia = new AddDialogue();
+            dia.Show();
+            dia.Focus();
         }
 
         private void InitProfileInfo()

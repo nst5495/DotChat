@@ -15,6 +15,10 @@ namespace DataConnection
             FluentMapper.Initialize(config =>
             {
                 config.AddMap(new UserAccountMapper());
+                config.AddMap(new Chat_MemberMapper());
+                config.AddMap(new ChatMapper());
+                config.AddMap(new Chat_MessageMapper());
+                config.AddMap(new Contact_ListMapper());
             });
         }
     }

@@ -58,6 +58,14 @@ namespace ChatClient.WebService
             return response.Data;
         }
 
+        public List<Chat> GetChatsForUser(int userid)
+        {
+            var request = new RestRequest("/api/Chat/GetChatsForUser");
+            request.AddParameter("userid", userid);
+            var response = client.Execute<List<Chat>>(request);
+            return response.Data;
+        }
+
         
 
 

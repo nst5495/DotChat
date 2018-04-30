@@ -12,5 +12,10 @@ namespace Domain
         public string StatusMessage { set; get; }
         public int Status { set; get; }
         public object UserIcon { set; get; }
+
+        public override string ToString()
+        {
+            return UserName;
+        }
     }
 }

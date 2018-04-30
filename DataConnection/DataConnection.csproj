@@ -61,6 +61,7 @@
     <Compile Include="DapperConfiguration.cs" />
     <Compile Include="DataConnectionManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Facades\ChatFacade.cs" />
     <Compile Include="Mappers\ChatMapper.cs" />
     <Compile Include="Mappers\Chat_MemberMapper.cs" />
     <Compile Include="Mappers\Chat_MessageMapper.cs" />
