@@ -25,6 +25,21 @@ namespace DataConnection
             return Connection.GetConnection().Query<UserAccount>("SELECT * FROM useraccount WHERE useraccount_username = @name AND useraccount_password = @password", new { name = username, password = userpassword }).FirstOrDefault();
         }
 
+        public UserAccount GetUserForName(string username)
+        {
+            return Connection.GetConnection().Query<UserAccount>("SELECT * FROM useraccount WHERE useraccount_username = @name", new { name = username}).FirstOrDefault();
+        }
+
+        public List<UserAccount> GetUsersForIds(List<int> ids)
+        {
+            List<UserAccount> uas = new List<UserAccount>();
+            foreach(int i in ids)
+            {
+                uas.Add(Connection.GetConnection().Query<UserAccount>("SELECT * FROM useraccount WHERE useraccount_id = @id", new { id = i }).FirstOrDefault());
+            }
+            return uas;
+        }
+
         public static UserFacade GetInstance()
         {
             if(Instance == null)

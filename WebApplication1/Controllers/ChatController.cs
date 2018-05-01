@@ -15,5 +15,24 @@ namespace WebApplication1.Controllers
         {
            return ChatFacade.GetInstance().GetChatsForUser(userid);
         }
+
+        //asp net doesn't support arrays as URL parameters, which is why we are parsing a string instead.
+        [HttpGet]
+        public bool AddChattoUser(string members, int adminid, string title)
+        {
+            string[] memberssplit = members.Split(new char[] { ';' },StringSplitOptions.RemoveEmptyEntries);
+            List<int> membersintlist = new List<int>();
+            foreach(string s in memberssplit)
+            {
+                membersintlist.Add(int.Parse(s));
+            }
+            return ChatFacade.GetInstance().AddChatToUser(membersintlist.ToArray(), title, adminid);
+        }
+
+        [HttpGet]
+        public List<UserAccount> GetMembersForChat(int chatid)
+        {
+            return ChatFacade.GetInstance().GetMembersForChat(chatid);
+        }
     }
 }

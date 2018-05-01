@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatClient.View"
         mc:Ignorable="d"
-        Title="AddDialogue" Height="204.58" Width="300">
+        Title="Create Chat" Height="261.152" Width="300">
     <Grid>
-        <ListView HorizontalAlignment="Left" Height="105" Margin="10,10,0,0" VerticalAlignment="Top" Width="274">
+        <ListView x:Name="MemberListView" HorizontalAlignment="Left" Height="105" Margin="10,48,0,0" VerticalAlignment="Top" Width="274">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="+" HorizontalAlignment="Left" Margin="256,117,0,0" VerticalAlignment="Top" Width="28" Click="Button_Click" Height="26"/>
-        <TextBox x:Name="UsernameTB" HorizontalAlignment="Left" Height="23" Margin="131,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="256,155,0,0" VerticalAlignment="Top" Width="28" Click="Button_Click" Height="26"/>
+        <TextBox x:Name="UsernameTB" HorizontalAlignment="Left" Height="26" Margin="78,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <Label x:Name="UsernameLBL" Content="Username" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.439,0.504" Width="63" TextBlock.TextAlignment="Right"/>
+        <Button x:Name="SaveBTN" Content="Save" HorizontalAlignment="Left" Margin="209,197,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="SaveBTN_Click"/>
+        <Label x:Name="ErrorLBL" Content="" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.484,0.521" Width="194" Foreground="Red"/>
+        <TextBox x:Name="TitleTB" HorizontalAlignment="Left" Height="26" Margin="51,14,0,0" TextWrapping="Wrap" Text="New Chat" VerticalAlignment="Top" Width="231"/>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.521,0.494" Width="36"/>
 
     </Grid>
 </Window>

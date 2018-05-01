@@ -47,6 +47,7 @@ namespace ChatClient
             UserAccount user = WebServiceProvider.getInstance().Login(UsernameTB.Text, PasswordTB.Password);
             if (user != null)
             {
+                LoginBT.Content = "Loading...";
                 CurrentUser.Login(user);
                 if((bool)RememberCB.IsChecked)
                 {
@@ -69,6 +70,7 @@ namespace ChatClient
                         File.Delete(Environment.SpecialFolder.ApplicationData + Strings.Login.IOInfo.RememberMePath);
                     }
                 }
+                CurrentUser.Init();
                 Contacts con = new Contacts();
                 con.Show();
                 this.Close();

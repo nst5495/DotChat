@@ -8,6 +8,7 @@ namespace Domain.DBClasses
     {
         public int Id { set; get; }
         public int Senderid { set; get; }
+        public int Chatid { set; get; }
         public string Message { set; get; }
         public DateTime Timestamp { set; get; }
     }

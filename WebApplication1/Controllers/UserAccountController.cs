@@ -33,5 +33,17 @@ namespace WebApplication1.Controllers
         {
             return UserFacade.GetInstance().ChangePassword(username, password);
         }
+
+        [HttpGet]
+        public UserAccount GetUserForName(string username)
+        {
+            return UserFacade.GetInstance().GetUserForName(username);
+        }
+
+        [HttpGet]
+        public List<UserAccount> GetUsersForIds(List<int> ids)
+        {
+            return UserFacade.GetInstance().GetUsersForIds(ids);
+        }
     }
 }
