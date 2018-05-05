@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Contacts" Height="823.858" Width="1133.766">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <ListView x:Name="ChatsList" HorizontalAlignment="Left" Height="539" Margin="10,244,0,0" VerticalAlignment="Top" Width="309" SelectionChanged="ChatsList_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -14,15 +17,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <FlowDocumentScrollViewer x:Name="ChatViewer" Margin="324,72,10,72">
+        <FlowDocumentScrollViewer x:Name="ChatViewer" Margin="341,72,10.2,72.4" BorderBrush="Black">
             <FlowDocument/>
         </FlowDocumentScrollViewer>
         <Button x:Name="AddBtn" Content="Add" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label x:Name="NameLBL" Content="" HorizontalAlignment="Left" Margin="324,726,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.573,0.124" Height="52" Width="125" FontSize="22"/>
         <TextBox x:Name="MessageTB" HorizontalAlignment="Left" Height="52" Margin="449,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="530"/>
-        <TextBlock x:Name="ParticipantsLBL" HorizontalAlignment="Left" Margin="324,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Width="793"/>
+        <TextBlock x:Name="ParticipantsLBL" HorizontalAlignment="Left" Margin="341,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Width="776" FontSize="18"/>
         <Image x:Name="ProfileIMG" HorizontalAlignment="Left" Height="151" Margin="10,10,0,0" VerticalAlignment="Top" Width="151"/>
-        <Label x:Name="NameBigLBL" Content="" HorizontalAlignment="Left" Margin="166,11,0,0" VerticalAlignment="Top" Width="153" Height="56"/>
+        <Label x:Name="NameBigLBL" Content="" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top" Width="153" Height="57"/>
         <Button x:Name="ViewProfileBTN" Content="Profile" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="75" Click="ViewProfileBTN_Click"/>
         <Button Content="Send" HorizontalAlignment="Left" Margin="984,726,0,0" VerticalAlignment="Top" Width="133" Height="52" IsDefault="True" FontSize="24" FontWeight="Bold"/>
 

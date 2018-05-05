@@ -38,5 +38,10 @@ namespace DataConnection.Facades
         {
             return connection.GetConnection().Query<Chat_Message>("SELECT * FROM chat_messages WHERE chat_messages_chat_id = @cid", new { cid = chatid }).ToList();
         }
+
+        public List<Chat_Message> CheckForNewMessages(DateTime timesince, int chatid)
+        {
+            return connection.GetConnection().Query<Chat_Message>("SELECT * FROM chat_messages WHERE chat_messages_chat_id = @cid AND chat_messages_timestamp > @tsince", new { cid = chatid, tsince = timesince }).ToList();
+        }
     }
 }

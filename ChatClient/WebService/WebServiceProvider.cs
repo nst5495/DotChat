@@ -111,8 +111,16 @@ namespace ChatClient.WebService
             return response.Data;
         }
 
+        public List<Chat> CheckForNewChats(int lastchatid, int userid)
+        {
+            var request = new RestRequest("api/Chat/CheckForNewChats");
+            request.AddParameter("lastchatid",lastchatid);
+            request.AddParameter("userid", userid);
+            var response = client.Execute<List<Chat>>(request);
+            return response.Data;
+        }
         #endregion
-
+        
         #region Message Functions for Message
 
         public int AddMessage(int chatid, string message, int senderid)
@@ -129,6 +137,15 @@ namespace ChatClient.WebService
         {
             var request = new RestRequest("api/Message/GetMessagesForChat");
             request.AddParameter("chatid", chatid);
+            var response = client.Execute<List<Chat_Message>>(request);
+            return response.Data;
+        }
+
+        public List<Chat_Message> CheckForNewMessages(DateTime timesince, int chatid)
+        {
+            var request = new RestRequest("api/Message/CheckForNewMessages");
+            request.AddParameter("chatid", chatid);
+            request.AddParameter("timesince", timesince);
             var response = client.Execute<List<Chat_Message>>(request);
             return response.Data;
         }

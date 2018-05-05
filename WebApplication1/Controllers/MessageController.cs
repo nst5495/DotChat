@@ -21,5 +21,11 @@ namespace WebApplication1.Controllers
         {
             return MessageFacade.getInstance().GetMessagesForChat(chatid);
         }
+
+        [HttpGet]
+        public List<Chat_Message> CheckForNewMessages(DateTime timesince, int chatid)
+        {
+            return MessageFacade.getInstance().CheckForNewMessages(timesince, chatid);
+        }
     }
 }

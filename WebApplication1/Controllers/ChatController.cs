@@ -34,5 +34,11 @@ namespace WebApplication1.Controllers
         {
             return ChatFacade.GetInstance().GetMembersForChat(chatid);
         }
+
+        [HttpGet]
+        public List<Chat> CheckForNewChats(int lastchatid, int userid)
+        {
+            return ChatFacade.GetInstance().CheckforNewChats(lastchatid,userid);
+        }
     }
 }

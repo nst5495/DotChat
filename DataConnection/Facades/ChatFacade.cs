@@ -63,5 +63,15 @@ namespace DataConnection.Facades
             }
             return lac;
         }
+
+        public List<Chat> CheckforNewChats(int lastchatid, int userid)
+        {
+            List<Chat> chats = GetChatsForUser(userid);
+            if(chats.Where(x=>x.Id > lastchatid).Count() > 0)
+            {
+                return chats.Where(x => x.Id > lastchatid).ToList();
+            }
+            return new List<Chat>();
+        }
     }
 }
