@@ -40,5 +40,17 @@ namespace WebApplication1.Controllers
         {
             return ChatFacade.GetInstance().CheckforNewChats(lastchatid,userid);
         }
+
+        [HttpGet]
+        public bool DeleteChat(int deletechatid)
+        {
+            return ChatFacade.GetInstance().DeleteChat(deletechatid);
+        }
+
+        [HttpGet]
+        public bool UserIsAdmin(int chatid, int userid)
+        {
+            return ChatFacade.GetInstance().UserIsAdmin(chatid, userid);
+        }
     }
 }

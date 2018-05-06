@@ -3,6 +3,7 @@ using Domain.DBClasses;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,8 +76,17 @@ namespace ChatClient.WebService
             IRestResponse<UserAccount> response = client.Execute<UserAccount>(request);
             return response.Data;
         }
-        #endregion
 
+        public bool UpdateStatus(int userid, string status)
+        {
+            var request = new RestRequest("/api/UserAccount/UpdateStatus");
+            request.AddParameter("userid", userid);
+            request.AddParameter("status", status);
+            var response = client.Execute<bool>(request);
+            return response.Data;
+
+        }
+        #endregion
 
         #region Chat Functions for Chat
         public List<Chat> GetChatsForUser(int userid)
@@ -119,8 +129,26 @@ namespace ChatClient.WebService
             var response = client.Execute<List<Chat>>(request);
             return response.Data;
         }
+
+        public bool DeleteChat(int chatid)
+        {
+            var request = new RestRequest("api/Chat/DeleteChat");
+            request.AddParameter("deletechatid", chatid);
+            var response = client.Execute<bool>(request);
+            return response.Data;
+        }
+
+        public bool UserIsAdmin(int chatid, int userid)
+        {
+            var request = new RestRequest("api/Chat/UserIsAdmin");
+            request.AddParameter("chatid", chatid);
+            request.AddParameter("userid", userid);
+            var response = client.Execute<bool>(request);
+            return response.Data;
+        }
+
         #endregion
-        
+
         #region Message Functions for Message
 
         public int AddMessage(int chatid, string message, int senderid)
@@ -144,8 +172,8 @@ namespace ChatClient.WebService
         public List<Chat_Message> CheckForNewMessages(DateTime timesince, int chatid)
         {
             var request = new RestRequest("api/Message/CheckForNewMessages");
+            request.AddParameter("timesince", timesince.ToString("yyyy-MM-ddTHH:mm:ss"));
             request.AddParameter("chatid", chatid);
-            request.AddParameter("timesince", timesince);
             var response = client.Execute<List<Chat_Message>>(request);
             return response.Data;
         }

@@ -45,5 +45,11 @@ namespace WebApplication1.Controllers
         {
             return UserFacade.GetInstance().GetUsersForIds(ids);
         }
+
+        [HttpGet]
+        public bool UpdateStats(int userid, string status)
+        {
+            return UserFacade.GetInstance().UpdateStatus(userid, status);
+        }
     }
 }

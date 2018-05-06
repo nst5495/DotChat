@@ -76,6 +76,12 @@ namespace DataConnection
                 new { password = password, username = username });
             return GetUser(username, password);
         }
+
+        public bool UpdateStatus(int userid, string status)
+        {
+            Connection.GetConnection().Execute("UPDATE useraccount SET useraccount_statusmessage = @status WHERE useraccount_id = @id", new { id = userid, status });
+            return true;
+        }
         
     }
 }

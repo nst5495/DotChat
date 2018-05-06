@@ -47,7 +47,7 @@ namespace ChatClient
             UserAccount user = WebServiceProvider.getInstance().Login(UsernameTB.Text, PasswordTB.Password);
             if (user != null)
             {
-                LoginBT.Content = "Loading...";
+                
                 CurrentUser.Login(user);
                 if((bool)RememberCB.IsChecked)
                 {

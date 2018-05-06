@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,18 +25,24 @@ namespace ChatClient.View
     /// </summary>
     public partial class Contacts : Window
     {
-
+        public ObservableCollection<ViewChat> chatlist;
         public Contacts()
         {
             InitializeComponent();
             InitProfileInfo();
             InitChatList();
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(15);
-            var timer = new System.Threading.Timer((e) =>
+            StatusTB.Text = CurrentUser.GetCurrentUser().StatusMessage;
+            var timer = new System.Timers.Timer(15000);
+            timer.Elapsed += UpdateChats;
+            timer.Start();
+
+            
+            if(CurrentUser.chats.FirstOrDefault() != null)
             {
-                UpdateChats();
-            }, null, startTimeSpan, periodTimeSpan);
+                ChatsList.SelectedItem = CurrentUser.chats.FirstOrDefault();
+            }
+            
+            
             
         }
 
@@ -54,7 +61,8 @@ namespace ChatClient.View
 
         private void InitChatList()
         {
-            ChatsList.ItemsSource = CurrentUser.chats;
+            chatlist = new ObservableCollection<ViewChat>(CurrentUser.chats);
+            ChatsList.ItemsSource = chatlist;
         }
 
         private void ViewProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -66,6 +74,10 @@ namespace ChatClient.View
 
         private void ChatsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(ChatsList.Items.Count == 0)
+            {
+                return;
+            }
             ChatViewer.Document = InitDoc((((ViewChat)ChatsList.SelectedItem).Messages));
             string participants = "";
             foreach(UserAccount uc in ((ViewChat)ChatsList.SelectedItem).Members)
@@ -74,6 +86,14 @@ namespace ChatClient.View
             }
             participants.Remove(participants.Length - 1);
             ParticipantsLBL.Text = participants;
+            if (WebServiceProvider.getInstance().UserIsAdmin(((ViewChat)ChatsList.SelectedItem).Id, CurrentUser.GetCurrentUser().Id))
+            {
+                DeleteBTN.IsEnabled = true;
+            }
+            else
+            {
+                DeleteBTN.IsEnabled = false;
+            }
         }
 
         private FlowDocument InitDoc(List<ViewMessage> vms)
@@ -92,20 +112,23 @@ namespace ChatClient.View
 
         }
 
-        private void UpdateChats()
+        private void UpdateChats(object sender, EventArgs e)
         {
-            List<Chat> newchats = WebServiceProvider.getInstance().CheckForNewChats(CurrentUser.chats.OrderByDescending(x => x.Id).FirstOrDefault().Id, CurrentUser.GetCurrentUser().Id);
-            if (newchats.Count != 0)
-            {
-                foreach(Chat c in newchats)
+
+            List<Chat> chats = WebServiceProvider.getInstance().CheckForNewChats(CurrentUser.chats.LastOrDefault().Id, CurrentUser.GetCurrentUser().Id);
+            if (chats.Count > 0)
                 {
-                    ViewChat vc = new ViewChat();
-                    vc.Id = c.Id;
-                    vc.Members = WebServiceProvider.getInstance().GetMembersForChat(c.Id);
-                    vc.Messages = new List<ViewMessage>();
-                    vc.Title = c.Title;
+                    foreach (Chat c in chats)
+                    {
+                        ViewChat vc = new ViewChat();
+                        vc.Id = c.Id;
+                        vc.Members = WebServiceProvider.getInstance().GetMembersForChat(c.Id);
+                        vc.Messages = new List<ViewMessage>();
+                        vc.Title = c.Title;
+                        CurrentUser.chats.Add(vc);
+                    }
+
                 }
-            }
             foreach (ViewChat c in CurrentUser.chats)
             {
                 List<Chat_Message> newmsgs = new List<Chat_Message>();
@@ -115,10 +138,9 @@ namespace ChatClient.View
                 }
                 else
                 {
-                    //TODO: Fix this query
                     newmsgs = WebServiceProvider.getInstance().CheckForNewMessages(DateTime.MinValue, c.Id);
                 }
-                if (newmsgs.Count > 0)
+                if (newmsgs != null)
                 {
                     foreach (Chat_Message cm in newmsgs)
                     {
@@ -133,7 +155,57 @@ namespace ChatClient.View
                         CurrentUser.chats.Where(x => x == vm.Chat).FirstOrDefault().Messages.Add(vm);
                     }
                 }
+                Dispatcher.Invoke(() =>UpdateChatsAndMessages());
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(MessageTB.Text.Length > 0)
+            {
+                WebServiceProvider.getInstance().AddMessage(((ViewChat)ChatsList.SelectedItem).Id, MessageTB.Text, CurrentUser.GetCurrentUser().Id);
+            }
+            //We dont actually use the Event related parameters at all so this should be fine
+            UpdateChats(null,null);
+            UpdateChatsAndMessages();
+        }
+
+        private void UpdateChatsAndMessages()
+        {
+            chatlist.Clear();
+            foreach(ViewChat c in CurrentUser.chats)
+            {
+                chatlist.Add(c);
+            }
+            if(CurrentUser.chats.Count > 0)
+            {
+                if(ChatsList.SelectedItem != null)
+                {
+                    ChatViewer.Document = InitDoc((((ViewChat)ChatsList.SelectedItem).Messages));
+                }
+                else
+                {
+                    ChatsList.SelectedItem = chatlist.FirstOrDefault();
+                    ChatViewer.Document = InitDoc((((ViewChat)ChatsList.SelectedItem).Messages));
+                }
+            }
+
+        }
+
+        private void DeleteBTN_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show(Strings.Common.Common.YesorNo,"",System.Windows.MessageBoxButton.YesNo);
+            if(mbr == MessageBoxResult.Yes)
+            {
+                WebServiceProvider.getInstance().DeleteChat(((ViewChat)ChatsList.SelectedItem).Id);
+                CurrentUser.chats.Remove((ViewChat)ChatsList.SelectedItem);
+                UpdateChatsAndMessages();
+            }
+        }
+
+        private void UpdateStatusBTN_Click(object sender, RoutedEventArgs e)
+        {
+            WebServiceProvider.getInstance().UpdateStatus(CurrentUser.GetCurrentUser().Id, StatusTB.Text);
         }
     }
 }

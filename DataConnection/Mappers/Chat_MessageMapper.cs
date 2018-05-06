@@ -12,10 +12,11 @@ namespace DataConnection.Mappers
     {
         public Chat_MessageMapper()
         {
-            Map(x => x.Id).ToColumn("chat_messages_chat_id", false);
+            Map(x => x.Id).ToColumn("chat_messages_id", false);
             Map(x => x.Message).ToColumn("chat_messages_message", false);
             Map(x => x.Senderid).ToColumn("chat_messages_sender_id", false);
             Map(x => x.Timestamp).ToColumn("chat_messages_timestamp", false);
+            Map(x => x.Chatid).ToColumn("chat_messages_chat_id", false);
         }
     }
 }

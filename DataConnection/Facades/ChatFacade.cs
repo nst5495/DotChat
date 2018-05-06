@@ -73,5 +73,27 @@ namespace DataConnection.Facades
             }
             return new List<Chat>();
         }
+
+        public bool DeleteChat(int chatid)
+        {
+            List<UserAccount> members = GetMembersForChat(chatid);
+            foreach(UserAccount m in members)
+            {
+                DeleteChatMember(chatid, m.Id);
+            }
+            connection.GetConnection().Execute("DELETE FROM chat WHERE chat_id = @cid", new { cid = chatid });
+            return true;
+        }
+
+        private void DeleteChatMember(int chatid, int userid)
+        {
+            connection.GetConnection().Execute("DELETE FROM chat_member WHERE chat_member_user_id = @uid AND chat_member_chat_id = @cid",new { uid = userid, cid = chatid });
+        }
+
+        public bool UserIsAdmin(int chatid, int userid)
+        {
+            Chat_Member member =  connection.GetConnection().Query<Chat_Member>("SELECT * FROM chat_member WHERE chat_member_user_id = @uid AND chat_member_chat_id = @cid", new { uid = userid, cid = chatid }).FirstOrDefault();
+            return member.Userisadmin == 1;
+        }
     }
 }

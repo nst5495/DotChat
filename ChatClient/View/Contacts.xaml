@@ -16,18 +16,28 @@
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+            <ListView Height="100" Width="100">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </ListView>
-        <FlowDocumentScrollViewer x:Name="ChatViewer" Margin="341,72,10.2,72.4" BorderBrush="Black">
+        <FlowDocumentScrollViewer x:Name="ChatViewer" Margin="341,108,10,93" BorderBrush="Black">
             <FlowDocument/>
         </FlowDocumentScrollViewer>
         <Button x:Name="AddBtn" Content="Add" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label x:Name="NameLBL" Content="" HorizontalAlignment="Left" Margin="324,726,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.573,0.124" Height="52" Width="125" FontSize="22"/>
         <TextBox x:Name="MessageTB" HorizontalAlignment="Left" Height="52" Margin="449,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="530"/>
-        <TextBlock x:Name="ParticipantsLBL" HorizontalAlignment="Left" Margin="341,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Width="776" FontSize="18"/>
+        <TextBlock x:Name="ParticipantsLBL" HorizontalAlignment="Left" Margin="341,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Width="776" FontSize="18"/>
         <Image x:Name="ProfileIMG" HorizontalAlignment="Left" Height="151" Margin="10,10,0,0" VerticalAlignment="Top" Width="151"/>
-        <Label x:Name="NameBigLBL" Content="" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top" Width="153" Height="57"/>
+        <Label x:Name="NameBigLBL" Content="" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top" Width="153" Height="57" FontWeight="Bold" FontSize="14"/>
         <Button x:Name="ViewProfileBTN" Content="Profile" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="75" Click="ViewProfileBTN_Click"/>
-        <Button Content="Send" HorizontalAlignment="Left" Margin="984,726,0,0" VerticalAlignment="Top" Width="133" Height="52" IsDefault="True" FontSize="24" FontWeight="Bold"/>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="984,726,0,0" VerticalAlignment="Top" Width="133" Height="52" IsDefault="True" FontSize="24" FontWeight="Bold" Click="Button_Click_1"/>
+        <Button x:Name="DeleteBTN" Content="Delete" HorizontalAlignment="Left" Margin="1017,10,0,0" VerticalAlignment="Top" Width="100" Height="37" Click="DeleteBTN_Click" IsEnabled="False"/>
+        <TextBox x:Name="StatusTB" HorizontalAlignment="Left" Height="64" Margin="166,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>
+        <Button x:Name="UpdateStatusBTN" Content="Update" HorizontalAlignment="Left" Margin="244,146,0,0" VerticalAlignment="Top" Width="75" Click="UpdateStatusBTN_Click"/>
 
     </Grid>
 </Window>

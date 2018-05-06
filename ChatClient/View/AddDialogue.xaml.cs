@@ -49,13 +49,8 @@ namespace ChatClient.View
         {
             if(users.Count != 0)
             {
-                //@TODO : Fix this
                 List<int> members = (from u in users select u.Id).ToList();
                 WebServiceProvider.getInstance().AddChatToUser(members.ToArray(), CurrentUser.GetCurrentUser().Id, TitleTB.Text);
-                ViewChat vc = new ViewChat();
-                vc.Members = users.ToList();
-                vc.Title = TitleTB.Text;
-                CurrentUser.chats.Add(vc);
                 Close();
             }
         }
